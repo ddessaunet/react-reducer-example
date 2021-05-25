@@ -1,2 +1,3 @@
 # react-reducer-example
-Created with CodeSandbox
+
+React State Management using Context API (useContext + useReducer Hooks)
