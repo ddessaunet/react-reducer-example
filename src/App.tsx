@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import "./styles.css";
 
+import reducerFn from "./state/reducer";
+import { initialState } from "./state/context";
+import { ActionType } from "./state/actions";
+
 export default function App() {
-  const [input, setInput] = useState<number>(0);
+  const [input, setInput] = useState(0);
+  const [state, dispatch] = useReducer(reducerFn, initialState);
+
   return (
     <div className="App">
       <h1>Reducer Example</h1>
@@ -14,11 +20,21 @@ export default function App() {
           value={input}
         />
         <br />
-        <button>Initialize Counter</button>
+        <button
+          onClick={() =>
+            dispatch({ type: ActionType.INITCOUNTER, payload: input })
+          }
+        >
+          Initialize Counter
+        </button>
       </div>
-      <p>0</p>
-      <button>increment</button>
-      <button>decrement</button>
+      <p>{state.count}</p>
+      <button onClick={() => dispatch({ type: ActionType.INCREMENT })}>
+        increment
+      </button>
+      <button onClick={() => dispatch({ type: ActionType.DECREMENT })}>
+        decrement
+      </button>
     </div>
   );
 }
